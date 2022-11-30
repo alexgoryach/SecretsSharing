@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SecretsSharing.Domain.Users;
 
@@ -9,15 +11,19 @@ namespace SecretsSharing.Infrastructure.DataAccess
     /// </summary>
     public class ApplicationDbContext : IdentityDbContext<User>
     {
-        public ApplicationDbContext(DbContextOptions options) : base(options)
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="options"></param>
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-            Database.Migrate();
+            Database.EnsureCreated();
         }
-
-        /*protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        
+        /// <inheritdoc/>
+        public async Task SaveChangesAsync(CancellationToken cancellationToken)
         {
-            optionsBuilder.UseNpgsql(
-                "Host=localhost;Port=5432;Database=SecretsSharingDb;Username=postgres;Password=postgres");
-        }*/
+            await base.SaveChangesAsync(cancellationToken);
+        }
     }
 }

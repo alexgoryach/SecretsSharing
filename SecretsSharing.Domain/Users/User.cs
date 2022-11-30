@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 
 namespace SecretsSharing.Domain.Users
 {
@@ -8,9 +7,5 @@ namespace SecretsSharing.Domain.Users
     /// </summary>
     public class User : IdentityUser
     {
-        /// <summary>
-        /// User id.
-        /// </summary>
-        public Guid Id { get; private set; }
     }
 }

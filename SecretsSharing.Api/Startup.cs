@@ -1,20 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using SecretsSharing.Domain.Users;
 using SecretsSharing.Infrastructure.DataAccess;
+using SecretsSharing.Usecases.Users.Registration;
 
 namespace SecretsSharing.Api
 {
@@ -32,8 +27,20 @@ namespace SecretsSharing.Api
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("AppDatabase")));
  
-            services.AddIdentity<User, IdentityRole>()
+            // Identity.
+            services.AddIdentity<User, IdentityRole>(options =>
+                {
+                    options.User.RequireUniqueEmail = true;
+                    options.Password.RequiredLength = 3;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequireDigit = false;
+                })
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+            
+            // MediatR.
+            services.AddMediatR(typeof(RegisterUserCommand));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -55,6 +62,7 @@ namespace SecretsSharing.Api
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });

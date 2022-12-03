@@ -1,5 +1,8 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using SecretsSharing.Domain.StorageDataEntities;
+using SecretsSharing.Domain.Users;
 
 namespace SecretsSharing.Infrastructure.Abstractions.Interfaces
 {
@@ -8,6 +11,16 @@ namespace SecretsSharing.Infrastructure.Abstractions.Interfaces
     /// </summary>
     public interface IAppDbContext
     {
+        /// <summary>
+        /// Users.
+        /// </summary>
+        DbSet<User> Users { get; }
+        
+        /// <summary>
+        /// Messages.
+        /// </summary>
+        public DbSet<Message> Messages { get; }
+
         /// <summary>
         /// Save changes.
         /// </summary>

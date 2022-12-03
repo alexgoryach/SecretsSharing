@@ -79,6 +79,14 @@ namespace SecretsSharing.Api
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SecretsSharing.Api", Version = "v1" });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = "Insert JWT token to the field.",
+                    Scheme = "bearer",
+                    BearerFormat = "JWT",
+                    Name = "bearer",
+                    Type = SecuritySchemeType.Http
+                });
             });
         }
 

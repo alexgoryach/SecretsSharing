@@ -29,8 +29,6 @@ namespace SecretsSharing.Api.Controllers
         /// <param name="command">Register command.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         [HttpPost]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(400)]
         public async Task RegisterUser(RegisterUserCommand command, CancellationToken cancellationToken)
         {
             await mediator.Send(command, cancellationToken);

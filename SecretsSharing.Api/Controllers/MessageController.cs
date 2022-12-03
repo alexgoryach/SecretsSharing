@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SecretsSharing.Usecases.Common.Dtos.Message;
 using SecretsSharing.Usecases.Messages.GetMessage;
+using SecretsSharing.Usecases.Messages.RemoveMessage;
 using SecretsSharing.Usecases.Messages.UploadMessage;
 
 namespace SecretsSharing.Api.Controllers
@@ -40,10 +41,8 @@ namespace SecretsSharing.Api.Controllers
         }
         
         /// <summary>
-        /// Create message.
+        /// Get message by id.
         /// </summary>
-        /// <param name="command">Create message command.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
         [HttpGet("{messageId}")]
         public async Task<MessageDto> GetMessageById(Guid messageId, CancellationToken cancellationToken)
         {
@@ -53,5 +52,13 @@ namespace SecretsSharing.Api.Controllers
             };
             return await mediator.Send(query, cancellationToken);
         }
+        
+        /// <summary>
+        /// Remove message by id.
+        /// </summary>
+        [HttpDelete("{messageId}")]
+        [Authorize]
+        public async Task RemoveMessageById(Guid messageId, CancellationToken cancellationToken) =>
+            await mediator.Send(new RemoveMessageByIdCommand(messageId), cancellationToken);
     }
 }

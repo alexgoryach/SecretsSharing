@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SecretsSharing.Domain.StorageDataEntities;
+using SecretsSharing.Usecases.Common.Dtos.Message;
 using SecretsSharing.Usecases.Messages.UploadMessage;
 
 namespace SecretsSharing.Usecases.Messages
@@ -15,6 +16,7 @@ namespace SecretsSharing.Usecases.Messages
         public MessageMappingProfile()
         {
             // Entity -> Dto.
+            CreateMap<MessageDto, Message>().ReverseMap();
 
             // Command -> Entity.
             CreateMap<CreateMessageCommand, Message>().ReverseMap();

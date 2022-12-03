@@ -34,7 +34,7 @@ namespace SecretsSharing.Usecases.Messages.UploadMessage
         {
             if (loggedUserAccessor.GetCurrentUserId() != request.UserId)
             {
-                throw new ForbiddenException("You have no rights to create user characteristic");
+                throw new ForbiddenException("You have no rights to create message");
             }
 
             var message = mapper.Map<Message>(request);

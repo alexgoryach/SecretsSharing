@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SecretsSharing.Usecases.Common.Dtos.Message;
+using SecretsSharing.Usecases.Messages.GetMessage;
 using SecretsSharing.Usecases.Messages.UploadMessage;
 
 namespace SecretsSharing.Api.Controllers
@@ -35,6 +37,21 @@ namespace SecretsSharing.Api.Controllers
         public async Task<Guid> CreateMessage(CreateMessageCommand command, CancellationToken cancellationToken)
         {
             return await mediator.Send(command, cancellationToken);
+        }
+        
+        /// <summary>
+        /// Create message.
+        /// </summary>
+        /// <param name="command">Create message command.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        [HttpGet("{messageId}")]
+        public async Task<MessageDto> GetMessageById(Guid messageId, CancellationToken cancellationToken)
+        {
+            var query = new GetMessageByIdQuery()
+            {
+                MessageId = messageId
+            };
+            return await mediator.Send(query, cancellationToken);
         }
     }
 }

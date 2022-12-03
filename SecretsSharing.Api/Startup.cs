@@ -1,48 +1,81 @@
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using SecretsSharing.Api.Infrastructure.Jwt;
 using SecretsSharing.Domain.Users;
 using SecretsSharing.Infrastructure.DataAccess;
 using SecretsSharing.Usecases.Users.Registration;
 
 namespace SecretsSharing.Api
 {
+    /// <summary>
+    /// Application entry point.
+    /// </summary>
     public class Startup
     {
+        private readonly IConfiguration configuration;
+        
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="configuration">Configuration.</param>
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            this.configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
-
+        /// <summary>
+        /// Configure application services.
+        /// </summary>
+        /// <param name="services">Services to configure collection.</param>
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseNpgsql(Configuration.GetConnectionString("AppDatabase")));
+                options.UseNpgsql(configuration.GetConnectionString("AppDatabase")));
  
             // Identity.
             services.AddIdentity<User, IdentityRole>(options =>
                 {
                     options.User.RequireUniqueEmail = true;
-                    options.Password.RequiredLength = 3;
+                    options.Password.RequiredLength = 5;
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequireLowercase = false;
                     options.Password.RequireUppercase = false;
                     options.Password.RequireDigit = false;
                 })
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
             
+            services.AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(new JwtBearerOptionsSetup(
+                    configuration["Jwt:SecretKey"],
+                    configuration["Jwt:Issuer"]).Setup
+                );
+
             // MediatR.
-            services.AddMediatR(typeof(RegisterUserCommand));
+            Infrastructure.DependencyInjection.MediatRModule.Register(services);
+            
+            // System dependencies.
+            Infrastructure.DependencyInjection.SystemModule.Register(services);
+
+            // Automapper.
+            Infrastructure.DependencyInjection.AutoMapperModule.Register(services);
 
             services.AddControllers();
+
+            // Swagger.
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SecretsSharing.Api", Version = "v1" });

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using SecretsSharing.Domain.StorageDataEntities;
 using SecretsSharing.Domain.Users;
 using SecretsSharing.Infrastructure.Abstractions.Interfaces;
 
@@ -12,6 +13,9 @@ namespace SecretsSharing.Infrastructure.DataAccess
     /// </summary>
     public class ApplicationDbContext : IdentityDbContext<User>, IAppDbContext
     {
+        /// <inheritdoc cref=""/>
+        public DbSet<Message> Messages { get; private set; }
+    
         /// <summary>
         /// Constructor.
         /// </summary>

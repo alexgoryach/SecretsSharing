@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using SecretsSharing.Usecases.Common.Dtos.UserAuthentication;
+using SecretsSharing.Usecases.Users;
 
 namespace SecretsSharing.Api.Infrastructure.DependencyInjection
 {
@@ -15,7 +15,7 @@ namespace SecretsSharing.Api.Infrastructure.DependencyInjection
         public static void Register(IServiceCollection services)
         {
             services.AddAutoMapper(
-                typeof(TokenModel).Assembly);
+                typeof(UsersMappingProfile).Assembly);
         }
     }
 }

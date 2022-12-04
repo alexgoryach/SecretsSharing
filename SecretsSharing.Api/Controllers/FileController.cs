@@ -9,7 +9,7 @@ using SecretsSharing.Usecases.Files.GetFileById;
 using SecretsSharing.Usecases.Files.UploadFile;
 using System.IO;
 using SecretsSharing.Usecases.Common.Dtos.File;
-using File = System.IO.File;
+using SecretsSharing.Usecases.Files.DeleteFile;
 
 namespace SecretsSharing.Api.Controllers
 {
@@ -55,9 +55,9 @@ namespace SecretsSharing.Api.Controllers
         /// <summary>
         /// Remove file by id.
         /// </summary>
-        /*[HttpDelete("{fileId}")]
+        [HttpDelete("{fileId}")]
         [Authorize]
         public async Task RemoveFileById(Guid fileId, CancellationToken cancellationToken) =>
-            await mediator.Send(new RemoveFileByIdCommand(fileId), cancellationToken);*/
+            await mediator.Send(new RemoveFileByIdCommand(fileId), cancellationToken);
     }
 }

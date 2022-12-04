@@ -20,6 +20,11 @@ namespace SecretsSharing.Infrastructure.Abstractions.Interfaces
         /// Messages.
         /// </summary>
         public DbSet<Message> Messages { get; }
+        
+        /// <summary>
+        /// Files.
+        /// </summary>
+        public DbSet<File> Files { get; }
 
         /// <summary>
         /// Save changes.

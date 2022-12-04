@@ -15,7 +15,10 @@ namespace SecretsSharing.Infrastructure.DataAccess
     {
         /// <inheritdoc cref=""/>
         public DbSet<Message> Messages { get; private set; }
-    
+
+        /// <inheritdoc cref=""/>
+        public DbSet<File> Files { get; private set; }
+
         /// <summary>
         /// Constructor.
         /// </summary>

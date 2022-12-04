@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using SecretsSharing.Api.Infrastructure.File;
 using SecretsSharing.Api.Infrastructure.Jwt;
 using SecretsSharing.Api.Infrastructure.LoggedUserAccessorServices;
 using SecretsSharing.Infrastructure.Abstractions.Interfaces;
@@ -19,6 +20,7 @@ namespace SecretsSharing.Api.Infrastructure.DependencyInjection
         {
             services.AddScoped<IAppDbContext, ApplicationDbContext>();
             services.AddScoped<IAuthenticationTokenService, JwtTokenService>();
+            services.AddScoped<IFileService, FileService>();
             services.AddScoped<ILoggedUserAccessor, LoggedUserAccessor>();
         }
     }

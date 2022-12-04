@@ -4,7 +4,9 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Saritasa.Tools.Common.Pagination;
 using SecretsSharing.Usecases.Common.Dtos.Message;
+using SecretsSharing.Usecases.Messages.GetAllMessages;
 using SecretsSharing.Usecases.Messages.GetMessage;
 using SecretsSharing.Usecases.Messages.RemoveMessage;
 using SecretsSharing.Usecases.Messages.UploadMessage;
@@ -60,5 +62,16 @@ namespace SecretsSharing.Api.Controllers
         [Authorize]
         public async Task RemoveMessageById(Guid messageId, CancellationToken cancellationToken) =>
             await mediator.Send(new RemoveMessageByIdCommand(messageId), cancellationToken);
+        
+        /// <summary>
+        /// Get all messages.
+        /// </summary>
+        [HttpGet]
+        public async Task<PagedListMetadataDto<MessageDto>> GetAllMessages(CancellationToken cancellationToken,
+            int page = 1, int pageSize = 20)
+        {
+            var query = new GetAllMessagesQuery(page, pageSize);
+            return await mediator.Send(query, cancellationToken);
+        }
     }
 }

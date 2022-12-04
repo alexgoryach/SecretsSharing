@@ -4,7 +4,12 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SecretsSharing.Domain.StorageDataEntities;
+using SecretsSharing.Usecases.Files.GetFileById;
 using SecretsSharing.Usecases.Files.UploadFile;
+using System.IO;
+using SecretsSharing.Usecases.Common.Dtos.File;
+using File = System.IO.File;
 
 namespace SecretsSharing.Api.Controllers
 {
@@ -37,15 +42,15 @@ namespace SecretsSharing.Api.Controllers
         /// <summary>
         /// Get file by id.
         /// </summary>
-        /*[HttpGet("{fileId}")]
-        public async Task<File> GetFileById(Guid fileId, CancellationToken cancellationToken)
+        [HttpGet("{fileId}")]
+        public async Task<FileDto> GetFileById(Guid fileId, CancellationToken cancellationToken)
         {
             var query = new GetFileByIdQuery()
             {
                 FileId = fileId
             };
             return await mediator.Send(query, cancellationToken);
-        }*/
+        }
         
         /// <summary>
         /// Remove file by id.

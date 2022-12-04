@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SecretsSharing.Domain.StorageDataEntities;
+using SecretsSharing.Usecases.Common.Dtos.File;
 using SecretsSharing.Usecases.Files.UploadFile;
 
 namespace SecretsSharing.Usecases.Files
@@ -9,6 +10,7 @@ namespace SecretsSharing.Usecases.Files
         public FileMappingProfile()
         {
             // Entity -> Dto.
+            CreateMap<File, FileDto>();
 
             // Command -> Entity.
             CreateMap<UploadFileCommand, File>()

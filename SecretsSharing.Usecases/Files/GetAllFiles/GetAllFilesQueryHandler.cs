@@ -9,7 +9,7 @@ using SecretsSharing.Usecases.Common.Dtos.File;
 
 namespace SecretsSharing.Usecases.Files.GetAllFiles
 {
-    public class GetAllFilesQueryHandler : IRequestHandler<GetAllFilesQuery, PagedListMetadataDto<FileDto>>
+    public class GetAllFilesQueryHandler : IRequestHandler<GetAllFilesQuery, PagedListMetadataDto<FileSummaryDto>>
     {
         private readonly IAppDbContext dbContext;
         private readonly IMapper mapper;
@@ -20,10 +20,10 @@ namespace SecretsSharing.Usecases.Files.GetAllFiles
             this.dbContext = dbContext;
         }
 
-        public async Task<PagedListMetadataDto<FileDto>> Handle(GetAllFilesQuery request, CancellationToken cancellationToken)
+        public async Task<PagedListMetadataDto<FileSummaryDto>> Handle(GetAllFilesQuery request, CancellationToken cancellationToken)
         {
             var query = mapper
-                .ProjectTo<FileDto>(dbContext.Files);
+                .ProjectTo<FileSummaryDto>(dbContext.Files);
             var files = await EFPagedListFactory
                 .FromSourceAsync(query, request.page, request.pageSize, cancellationToken);
 

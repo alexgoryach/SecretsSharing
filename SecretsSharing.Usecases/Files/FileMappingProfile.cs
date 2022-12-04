@@ -11,6 +11,7 @@ namespace SecretsSharing.Usecases.Files
         {
             // Entity -> Dto.
             CreateMap<File, FileDto>();
+            CreateMap<File, FileSummaryDto>();
 
             // Command -> Entity.
             CreateMap<UploadFileCommand, File>()

@@ -66,7 +66,7 @@ namespace SecretsSharing.Api.Controllers
         /// Get all files.
         /// </summary>
         [HttpGet]
-        public async Task<PagedListMetadataDto<FileDto>> GetAllFiles(CancellationToken cancellationToken,
+        public async Task<PagedListMetadataDto<FileSummaryDto>> GetAllFiles(CancellationToken cancellationToken,
             int page = 1, int pageSize = 20)
         {
             var query = new GetAllFilesQuery(page, pageSize);

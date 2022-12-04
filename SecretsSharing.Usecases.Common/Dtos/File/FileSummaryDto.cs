@@ -2,10 +2,8 @@
 
 namespace SecretsSharing.Usecases.Common.Dtos.File
 {
-    public class FileDto
+    public class FileSummaryDto
     {
         public Guid Id { get; set; }
-        
-        public string Url { get; set; }
     }
 }

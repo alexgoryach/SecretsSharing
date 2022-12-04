@@ -8,8 +8,10 @@ using SecretsSharing.Domain.StorageDataEntities;
 using SecretsSharing.Usecases.Files.GetFileById;
 using SecretsSharing.Usecases.Files.UploadFile;
 using System.IO;
+using Saritasa.Tools.Common.Pagination;
 using SecretsSharing.Usecases.Common.Dtos.File;
 using SecretsSharing.Usecases.Files.DeleteFile;
+using SecretsSharing.Usecases.Files.GetAllFiles;
 
 namespace SecretsSharing.Api.Controllers
 {
@@ -59,5 +61,16 @@ namespace SecretsSharing.Api.Controllers
         [Authorize]
         public async Task RemoveFileById(Guid fileId, CancellationToken cancellationToken) =>
             await mediator.Send(new RemoveFileByIdCommand(fileId), cancellationToken);
+        
+        /// <summary>
+        /// Get all files.
+        /// </summary>
+        [HttpGet]
+        public async Task<PagedListMetadataDto<FileDto>> GetAllFiles(CancellationToken cancellationToken,
+            int page = 1, int pageSize = 20)
+        {
+            var query = new GetAllFilesQuery(page, pageSize);
+            return await mediator.Send(query, cancellationToken);
+        }
     }
 }

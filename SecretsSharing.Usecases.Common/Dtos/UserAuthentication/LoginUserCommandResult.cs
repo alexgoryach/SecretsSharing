@@ -3,7 +3,7 @@
 namespace SecretsSharing.Usecases.Common.Dtos.UserAuthentication
 {
     /// <summary>
-    /// Login User
+    /// Login User.
     /// </summary>
     public class LoginUserCommandResult
     {

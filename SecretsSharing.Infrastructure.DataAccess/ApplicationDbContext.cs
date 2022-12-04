@@ -22,7 +22,6 @@ namespace SecretsSharing.Infrastructure.DataAccess
         /// <summary>
         /// Constructor.
         /// </summary>
-        /// <param name="options"></param>
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
             Database.EnsureCreated();

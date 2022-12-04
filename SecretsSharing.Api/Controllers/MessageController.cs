@@ -35,6 +35,7 @@ namespace SecretsSharing.Api.Controllers
         /// </summary>
         /// <param name="command">Create message command.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>Message url.</returns>
         [HttpPost]
         [Authorize]
         public async Task<Guid> CreateMessage(CreateMessageCommand command, CancellationToken cancellationToken)
@@ -45,6 +46,9 @@ namespace SecretsSharing.Api.Controllers
         /// <summary>
         /// Get message by id.
         /// </summary>
+        /// <param name="messageId">Message id.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>Message.</returns>
         [HttpGet("{messageId}")]
         public async Task<MessageDto> GetMessageById(Guid messageId, CancellationToken cancellationToken)
         {
@@ -58,6 +62,8 @@ namespace SecretsSharing.Api.Controllers
         /// <summary>
         /// Remove message by id.
         /// </summary>
+        /// <param name="messageId">Message id.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
         [HttpDelete("{messageId}")]
         [Authorize]
         public async Task RemoveMessageById(Guid messageId, CancellationToken cancellationToken) =>
@@ -66,6 +72,10 @@ namespace SecretsSharing.Api.Controllers
         /// <summary>
         /// Get all messages.
         /// </summary>
+        /// <param name="page">Pagination pages number.</param>
+        /// <param name="pageSize">Pagination page size.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>List of messages.</returns> 
         [HttpGet]
         public async Task<PagedListMetadataDto<MessageDto>> GetAllMessages(CancellationToken cancellationToken,
             int page = 1, int pageSize = 20)

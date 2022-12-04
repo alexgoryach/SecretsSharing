@@ -12,7 +12,7 @@ namespace SecretsSharing.Usecases.Messages.UploadMessage
     /// <summary>
     /// Create message command handler.
     /// </summary>
-    public class CreateMessageCommandHandler : IRequestHandler<CreateMessageCommand, Guid>
+    internal class CreateMessageCommandHandler : IRequestHandler<CreateMessageCommand, Guid>
     {
         private readonly IMapper mapper;
         private readonly IAppDbContext dbContext;

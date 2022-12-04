@@ -46,7 +46,7 @@ namespace SecretsSharing.Api.Controllers
         /// Get current logged user info.
         /// </summary>
         /// <returns>Current logged user info.</returns>
-        /// <param name="cancellationToken">Cancellation token to cancel the request.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
         [HttpGet]
         [Authorize]
         public async Task<UserDto> GetMe(CancellationToken cancellationToken)
@@ -63,7 +63,7 @@ namespace SecretsSharing.Api.Controllers
         /// </summary>
         /// <param name="command">Refresh token command.</param>
         /// <returns>New authentication and refresh tokens.</returns>
-        /// <param name="cancellationToken">Cancellation token to cancel the request.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
         [HttpPut]
         public Task<TokenModel> RefreshToken(RefreshTokenCommand command, CancellationToken cancellationToken)
             => mediator.Send(command, cancellationToken);

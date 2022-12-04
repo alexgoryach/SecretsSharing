@@ -14,12 +14,18 @@ using SecretsSharing.Usecases.Users.Services;
 
 namespace SecretsSharing.Usecases.Users.RefreshUserJwt
 {
-    public class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, TokenModel>
+    /// <summary>
+    /// Refresh token command handler.
+    /// </summary>
+    internal class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, TokenModel>
     {
         private readonly IAuthenticationTokenService tokenService;
         private readonly SignInManager<User> signInManager;
         private readonly IAppDbContext dbContext;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public RefreshTokenCommandHandler(IAuthenticationTokenService tokenService,
             SignInManager<User> signInManager, IAppDbContext dbContext)
         {
@@ -28,6 +34,7 @@ namespace SecretsSharing.Usecases.Users.RefreshUserJwt
             this.dbContext = dbContext;
         }
 
+        /// <inheritdoc />>
         public async Task<TokenModel> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
         {
             // Get user.
@@ -50,6 +57,11 @@ namespace SecretsSharing.Usecases.Users.RefreshUserJwt
             return TokenModelGenerator.Generate(tokenService, principal.Claims);
         }
         
+        /// <summary>
+        /// Get token creation date.
+        /// </summary>
+        /// <param name="token">Token.</param>
+        /// <returns>Token creation date.</returns>
         private DateTime GetTokenCreationDate(string token)
         {
             var tokenClaims = GetTokenClaims(token);
@@ -61,6 +73,11 @@ namespace SecretsSharing.Usecases.Users.RefreshUserJwt
             return new DateTime(long.Parse(iatClaim.Value), DateTimeKind.Utc);
         }
 
+        /// <summary>
+        /// Get token user id.
+        /// </summary>
+        /// <param name="token">Token.</param>
+        /// <returns>User id.</returns>
         private string GetTokenUserId(string token)
         {
             var tokenClaims = GetTokenClaims(token);
@@ -73,6 +90,11 @@ namespace SecretsSharing.Usecases.Users.RefreshUserJwt
             return userIdClaim.Value;
         }
 
+        /// <summary>
+        /// Get token claims.
+        /// </summary>
+        /// <param name="token">Token.</param>
+        /// <returns>Token claims.</returns>
         private IEnumerable<Claim> GetTokenClaims(string token)
         {
             try

@@ -8,13 +8,19 @@ namespace SecretsSharing.Usecases.Messages.UploadMessage
     /// </summary>
     public record CreateMessageCommand : IRequest<Guid>
     {
-        /// <inheritdoc cref="SecretsSharing.Domain.StorageDataEntities.Message.UserId"/>
+        /// <summary>
+        /// Id of user who uploaded message.
+        /// </summary>
         public Guid UserId { get; init; }
         
-        /// <inheritdoc cref="SecretsSharing.Domain.StorageDataEntities.Message.MessageText"/>
+        /// <summary>
+        /// Message text.
+        /// </summary>
         public string MessageText { get; init; }
         
-        /// <inheritdoc cref="SecretsSharing.Domain.StorageDataEntities.Message.AutoDelete"/>
+        /// <summary>
+        /// Delete message after access option.
+        /// </summary>
         public bool AutoDelete { get; init; }
     }
 }

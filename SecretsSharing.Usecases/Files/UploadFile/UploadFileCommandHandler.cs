@@ -9,13 +9,19 @@ using SecretsSharing.Infrastructure.Abstractions.Interfaces;
 
 namespace SecretsSharing.Usecases.Files.UploadFile
 {
-    public class UploadFileCommandHandler : IRequestHandler<UploadFileCommand, Guid>
+    /// <summary>
+    /// Upload file command handler.
+    /// </summary>
+    internal class UploadFileCommandHandler : IRequestHandler<UploadFileCommand, Guid>
     {
         private readonly IFileService fileService;
         private readonly IMapper mapper;
         private readonly IAppDbContext dbContext;
         private readonly ILoggedUserAccessor loggedUserAccessor;
         
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public UploadFileCommandHandler(IFileService fileService, IMapper mapper,
             IAppDbContext dbContext, ILoggedUserAccessor loggedUserAccessor)
         {
@@ -24,7 +30,8 @@ namespace SecretsSharing.Usecases.Files.UploadFile
             this.dbContext = dbContext;
             this.loggedUserAccessor = loggedUserAccessor;
         }
-        
+
+        /// <inheritdoc cref=""/>
         public async Task<Guid> Handle(UploadFileCommand request, CancellationToken cancellationToken)
         {
             if (loggedUserAccessor.GetCurrentUserId() != request.UserId)

@@ -3,18 +3,13 @@
 namespace SecretsSharing.Usecases.Common.Dtos.File
 {
     /// <summary>
-    /// File Dto.
+    /// File summary Dto.
     /// </summary>
-    public class FileDto
+    public class FileSummaryDto
     {
         /// <summary>
         /// File id.
         /// </summary>
         public Guid Id { get; set; }
-        
-        /// <summary>
-        /// File url.
-        /// </summary>
-        public string Url { get; set; }
     }
 }

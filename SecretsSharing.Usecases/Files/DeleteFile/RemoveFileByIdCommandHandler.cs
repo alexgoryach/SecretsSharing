@@ -8,11 +8,17 @@ using SecretsSharing.Infrastructure.Abstractions.Interfaces;
 
 namespace SecretsSharing.Usecases.Files.DeleteFile
 {
+    /// <summary>
+    /// Remove file by id command handler.
+    /// </summary>
     internal class RemoveFileByIdCommandHandler : IRequestHandler<RemoveFileByIdCommand>
     {
         private readonly IAppDbContext dbContext;
         private readonly ILoggedUserAccessor loggedUserAccessor;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public RemoveFileByIdCommandHandler(IAppDbContext dbContext,
             ILoggedUserAccessor loggedUserAccessor)
         {
@@ -20,6 +26,7 @@ namespace SecretsSharing.Usecases.Files.DeleteFile
             this.loggedUserAccessor = loggedUserAccessor;
         }
         
+        /// <inheritdoc />>
         public async Task<Unit> Handle(RemoveFileByIdCommand request, CancellationToken cancellationToken)
         {
             var file = await dbContext.Files.GetAsync(file => file.Id == request.FileId);

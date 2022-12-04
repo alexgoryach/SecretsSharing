@@ -18,12 +18,12 @@ namespace SecretsSharing.Domain.StorageDataEntities
         public string MessageText { get; set; }
         
         /// <summary>
-        /// Automatic deletion of message after reading.
+        /// Delete message after reading option.
         /// </summary>
         public bool AutoDelete { get; set; }
 
         /// <summary>
-        /// User id.
+        /// Id of user who uploaded message.
         /// </summary>
         public Guid UserId { get; set; }
     }

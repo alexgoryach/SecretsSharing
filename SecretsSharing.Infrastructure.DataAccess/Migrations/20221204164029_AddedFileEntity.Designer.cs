@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SecretsSharing.Infrastructure.DataAccess;
@@ -9,9 +10,10 @@ using SecretsSharing.Infrastructure.DataAccess;
 namespace SecretsSharing.Infrastructure.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221204164029_AddedFileEntity")]
+    partial class AddedFileEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -169,6 +171,8 @@ namespace SecretsSharing.Infrastructure.DataAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("Files");
                 });
 
@@ -187,7 +191,12 @@ namespace SecretsSharing.Infrastructure.DataAccess.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
+                    b.Property<string>("UserId1")
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId1");
 
                     b.ToTable("Messages");
                 });
@@ -311,6 +320,24 @@ namespace SecretsSharing.Infrastructure.DataAccess.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("SecretsSharing.Domain.StorageDataEntities.File", b =>
+                {
+                    b.HasOne("SecretsSharing.Domain.Users.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("SecretsSharing.Domain.StorageDataEntities.Message", b =>
+                {
+                    b.HasOne("SecretsSharing.Domain.Users.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId1");
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

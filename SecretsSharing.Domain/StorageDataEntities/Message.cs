@@ -1,6 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations.Schema;
-using SecretsSharing.Domain.Users;
 
 namespace SecretsSharing.Domain.StorageDataEntities
 {
@@ -27,12 +25,6 @@ namespace SecretsSharing.Domain.StorageDataEntities
         /// <summary>
         /// User id.
         /// </summary>
-        [ForeignKey("UserKey")]
         public Guid UserId { get; set; }
-        
-        /// <summary>
-        /// User who upload message.
-        /// </summary>
-        public User User { get; set; }
     }
 }

@@ -4,6 +4,9 @@ using SecretsSharing.Usecases.Common.Dtos.UserAuthentication;
 
 namespace SecretsSharing.Usecases.Users
 {
+    /// <summary>
+    /// User mapping profile.
+    /// </summary>
     public class UsersMappingProfile : Profile
     {
         /// <summary>
@@ -13,8 +16,6 @@ namespace SecretsSharing.Usecases.Users
         {
             // Entity -> Dto.
             CreateMap<User, UserDto>().ReverseMap();
-
-            // Command -> Entity.
         }
     }
 }

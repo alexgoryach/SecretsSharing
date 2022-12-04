@@ -9,12 +9,18 @@ using SecretsSharing.Usecases.Common.Dtos.File;
 
 namespace SecretsSharing.Usecases.Files.GetFileById
 {
+    /// <summary>
+    /// Get file by id query handler.
+    /// </summary>
     internal class GetFileByIdQueryHandler : IRequestHandler<GetFileByIdQuery, FileDto>
     {
         private readonly IAppDbContext dbContext;
         private readonly ILoggedUserAccessor loggedUserAccessor;
         private readonly IMapper mapper;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public GetFileByIdQueryHandler(IAppDbContext dbContext, ILoggedUserAccessor loggedUserAccessor,
             IMapper mapper)
         {
@@ -23,6 +29,7 @@ namespace SecretsSharing.Usecases.Files.GetFileById
             this.mapper = mapper;
         }
         
+        /// <inheritdoc />
         public async Task<FileDto> Handle(GetFileByIdQuery request, CancellationToken cancellationToken)
         {
             var file = await dbContext.Files.GetAsync(file => file.Id == request.FileId);

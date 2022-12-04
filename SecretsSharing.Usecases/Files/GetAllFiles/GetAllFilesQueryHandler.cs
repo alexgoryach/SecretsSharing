@@ -9,17 +9,24 @@ using SecretsSharing.Usecases.Common.Dtos.File;
 
 namespace SecretsSharing.Usecases.Files.GetAllFiles
 {
-    public class GetAllFilesQueryHandler : IRequestHandler<GetAllFilesQuery, PagedListMetadataDto<FileSummaryDto>>
+    /// <summary>
+    /// Get all files query handler.
+    /// </summary>
+    internal class GetAllFilesQueryHandler : IRequestHandler<GetAllFilesQuery, PagedListMetadataDto<FileSummaryDto>>
     {
         private readonly IAppDbContext dbContext;
         private readonly IMapper mapper;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public GetAllFilesQueryHandler(IAppDbContext dbContext, IMapper mapper)
         {
             this.mapper = mapper;
             this.dbContext = dbContext;
         }
 
+        /// <inheritdoc />
         public async Task<PagedListMetadataDto<FileSummaryDto>> Handle(GetAllFilesQuery request, CancellationToken cancellationToken)
         {
             var query = mapper

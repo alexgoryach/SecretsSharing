@@ -4,11 +4,14 @@ using SecretsSharing.Usecases.Common.Dtos.UserAuthentication;
 
 namespace SecretsSharing.Usecases.Users.GetCurrentUser
 {
-    public class GetUserByIdQuery : IRequest<UserDto>
+    /// <summary>
+    /// Get user by id query.
+    /// </summary>
+    public record GetUserByIdQuery : IRequest<UserDto>
     {
         /// <summary>
         /// User id.
         /// </summary>
-        public Guid UserId { get; set; }
+        public Guid UserId { get; init; }
     }
 }

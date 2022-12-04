@@ -7,11 +7,17 @@ using SecretsSharing.Infrastructure.Abstractions.Interfaces;
 
 namespace SecretsSharing.Usecases.Messages.RemoveMessage
 {
-    public class RemoveMessageByIdCommandHandler : IRequestHandler<RemoveMessageByIdCommand>
+    /// <summary>
+    /// Remove message by id command handler.
+    /// </summary>
+    internal class RemoveMessageByIdCommandHandler : IRequestHandler<RemoveMessageByIdCommand>
     {
         private readonly IAppDbContext dbContext;
         private readonly ILoggedUserAccessor loggedUserAccessor;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public RemoveMessageByIdCommandHandler(IAppDbContext dbContext,
             ILoggedUserAccessor loggedUserAccessor)
         {
@@ -19,6 +25,7 @@ namespace SecretsSharing.Usecases.Messages.RemoveMessage
             this.loggedUserAccessor = loggedUserAccessor;
         }
 
+        /// <inheritdoc />>
         public async Task<Unit> Handle(RemoveMessageByIdCommand request, CancellationToken cancellationToken)
         {
             var message = await dbContext.Messages.GetAsync(message => message.Id == request.messageId);

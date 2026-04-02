@@ -1,2 +1,2 @@
-# SecretsSharing
-This is a test task. This API will allow you to exchange files and messages
+# Secrets Sharing API
+Exchange files and text messages.
